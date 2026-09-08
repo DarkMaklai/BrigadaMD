@@ -98,7 +98,7 @@ async def process_workers(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
     workers_map = {"w_1_3": "1–3 человека", "w_4_6": "4–6 человек", "w_7_plus": "7+ человек"}
     context.user_data["workers_count"] = workers_map.get(query.data, query.data)
-    await query.edit_message_text("📸 **Отправьте фото с объекта** (или напишите 'нет', если фото нет):", parse_mode="Markdown")
+    await query.edit_message_text("📸 **Отправьте фото с объекта** (или напишите любой текст, если фото нет):", parse_mode="Markdown")
     return PHOTO
 
 async def process_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -164,7 +164,7 @@ def main():
             SELECTING_CITY: [CallbackQueryHandler(process_city, pattern="^loc_")],
             STAT_DAY: [CallbackQueryHandler(process_status, pattern="^stat_")],
             WORK_DONE: [MessageHandler(filters.TEXT & ~filters.COMMAND, process_work_done)],
-            WORKERS_COUNT: [CallbackQueryHandler(workers_kb, pattern="^w_") | MessageHandler(filters.TEXT, process_workers)], # Поддержка кнопок
+            WORKERS_COUNT: [CallbackQueryHandler(process_workers, pattern="^w_")],
             PHOTO: [MessageHandler(filters.PHOTO | (filters.TEXT & ~filters.COMMAND), process_photo)],
             EXPENSES: [MessageHandler(filters.TEXT & ~filters.COMMAND, process_expenses)],
             NEEDS: [CallbackQueryHandler(process_needs, pattern="^need_")],
