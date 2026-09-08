@@ -1,8 +1,9 @@
-﻿import logging
+import os
+import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ConversationHandler
 
-TOKEN = "8625974540:AAEX6_RvqiR3wegyGbCYUiJLOA6mz5ZNV6k"
+TOKEN = os.getenv("TOKEN", "8625974540:AAEX6_RvqiR3wegyGbCYUiJLOA6mz5ZNV6k")
 ADMIN_ID = 647251759
 
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
